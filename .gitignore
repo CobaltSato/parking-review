@@ -52,6 +52,9 @@ Thumbs.db
 # Package files
 *.tgz
 *.tar.gz
+# Exception: Include required package tarballs for Vercel deployment
+!dimo-network-login-with-dimo-*.tgz
+!dimo-login-button-sdk-*.tgz
 
 # TypeScript
 *.tsbuildinfo
