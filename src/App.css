@@ -39,11 +39,24 @@
   }
 }
 
+/* アプリタイトル */
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  margin-top: 0;
+  background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
 /* ユーザー情報表示 */
 .user-data {
   width: 100%;
   max-width: 600px;
-  margin: 20px 0;
+  margin: 0 0 2.5rem 0;
 }
 
 .user-info-card {
@@ -160,7 +173,7 @@
   position: relative;
   width: 100%;
   max-width: 600px;
-  margin: 20px 0;
+  margin: 0;
 }
 
 .placeholder-card {

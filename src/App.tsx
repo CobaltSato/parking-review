@@ -44,6 +44,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1 className="app-title">ParkingReview</h1>
         <UserData />
         <ParkingFeedbackFlow />
         {SHOW_EXAMPLES && (
