@@ -110,6 +110,44 @@
   font-family: 'Courier New', monospace;
   font-size: 15px;
   color: #61dafb;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.user-info-value.wallet:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+  transform: translateY(-1px);
+}
+
+.user-info-value.wallet:active {
+  transform: translateY(0);
+}
+
+.user-info-value.wallet.copied {
+  color: #4ade80;
+  background-color: rgba(74, 222, 128, 0.1);
+}
+
+.copy-icon {
+  font-size: 14px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.user-info-value.wallet:hover .copy-icon {
+  opacity: 1;
+}
+
+.user-info-value.wallet.copied .copy-icon {
+  opacity: 1;
+  font-size: 16px;
 }
 
 .user-info-value.no-email {

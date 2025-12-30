@@ -70,11 +70,24 @@ interface Props {
 
 const UserData = () => {
   const { isAuthenticated, email, walletAddress } = useDimoAuthState();
+  const [copied, setCopied] = useState(false);
+  
   if (!isAuthenticated) return null;
   
   const truncatedWallet = walletAddress 
     ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
     : null;
+
+  const handleCopyWallet = async () => {
+    if (!walletAddress) return;
+    try {
+      await navigator.clipboard.writeText(walletAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   return (
     <div className="user-data">
@@ -84,7 +97,14 @@ const UserData = () => {
             <div className="user-info-icon">👛</div>
             <div className="user-info-content">
               <div className="user-info-label">ウォレットアドレス</div>
-              <div className="user-info-value wallet">{truncatedWallet}</div>
+              <div 
+                className={`user-info-value wallet ${copied ? 'copied' : ''}`}
+                onClick={handleCopyWallet}
+                title="クリックでコピー"
+              >
+                {truncatedWallet}
+                <span className="copy-icon">{copied ? '✓' : '📋'}</span>
+              </div>
             </div>
           </div>
         )}
