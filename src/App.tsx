@@ -18,8 +18,8 @@ import './App.css';
 const sampleExpirationDate = new Date(Date.UTC(2025, 11, 11, 18, 51)); // Note: Month is zero-based
 
 function App() {
-  const [permissionsEnabled, setPermissionsEnabled] = useState(false);
-  const [forceEmail, setForceEmail] = useState(false);
+  const [permissionsEnabled, setPermissionsEnabled] = useState(true);
+  const [forceEmail, setForceEmail] = useState(true);
   initializeDimoSDK({
     clientId: process.env.REACT_APP_DIMO_CLIENT_ID!,
     redirectUri: process.env.REACT_APP_DIMO_REDIRECT_URI!,
@@ -77,10 +77,26 @@ const UserData = () => {
   const { isAuthenticated, email, walletAddress } = useDimoAuthState();
   if (!isAuthenticated) return null;
   return (
-    <div>
-      <p>Connected User</p>
-      <p>Wallet Address:{walletAddress}</p>
-      {!!email && <p>{email}</p>}
+    <div className="user-data">
+      <h3>Connected User</h3>
+      {walletAddress && (
+        <div className="user-info-item">
+          <span className="user-label">Wallet Address:</span>
+          <span className="user-value">{walletAddress}</span>
+        </div>
+      )}
+      {email && (
+        <div className="user-info-item">
+          <span className="user-label">Email:</span>
+          <span className="user-value">{email}</span>
+        </div>
+      )}
+      {!email && (
+        <div className="user-info-item">
+          <span className="user-label">Email:</span>
+          <span className="user-value no-email">メールアドレスが取得できませんでした</span>
+        </div>
+      )}
     </div>
   );
 };
