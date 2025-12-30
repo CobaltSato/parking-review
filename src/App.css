@@ -20,10 +20,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
-  padding-bottom: 48px;
+  padding: 80px 20px 48px;
+  box-sizing: border-box;
 }
 
 .App-link {
@@ -41,14 +42,37 @@
 
 /* アプリタイトル */
 .app-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 4rem;
   margin-top: 0;
   background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* ログイン画面 */
+.login-screen {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.error-message {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 0.875rem;
   text-align: center;
 }
 

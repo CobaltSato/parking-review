@@ -44,7 +44,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="app-title">ParkingReview</h1>
+        <h1 className="app-title">Parking Review</h1>
+        <LoginScreen />
         <UserData />
         <ParkingFeedbackFlow />
         {SHOW_EXAMPLES && (
@@ -68,6 +69,35 @@ interface Props {
   loginType: DimoSDKModes;
   permissionsEnabled?: boolean;
 }
+
+const LoginScreen = () => {
+  const { isAuthenticated } = useDimoAuthState();
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  if (isAuthenticated) return null;
+
+  const handleLoginSuccess = () => {
+    setLoginError(null);
+  };
+
+  const handleLoginError = (error: unknown) => {
+    console.error('Login error:', error);
+    setLoginError('ログインに失敗しました。もう一度お試しください。');
+  };
+
+  return (
+    <div className="login-screen">
+      <LoginWithDimo
+        mode={DimoSDKModes.POPUP}
+        onSuccess={handleLoginSuccess}
+        onError={handleLoginError}
+      />
+      {loginError && (
+        <div className="error-message">{loginError}</div>
+      )}
+    </div>
+  );
+};
 
 const UserData = () => {
   const { isAuthenticated, email, walletAddress } = useDimoAuthState();
