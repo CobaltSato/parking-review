@@ -139,24 +139,6 @@ const UserData = () => {
             </div>
           </div>
         )}
-        {email && (
-          <div className="user-info-row">
-            <div className="user-info-icon">✉️</div>
-            <div className="user-info-content">
-              <div className="user-info-label">メールアドレス</div>
-              <div className="user-info-value">{email}</div>
-            </div>
-          </div>
-        )}
-        {!email && (
-          <div className="user-info-row">
-            <div className="user-info-icon">✉️</div>
-            <div className="user-info-content">
-              <div className="user-info-label">メールアドレス</div>
-              <div className="user-info-value no-email">未設定</div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
