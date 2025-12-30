@@ -16,6 +16,8 @@ import { sampleAbi } from './abi/sample-abi';
 import './App.css';
 
 const sampleExpirationDate = new Date(Date.UTC(2025, 11, 11, 18, 51)); // Note: Month is zero-based
+const SHOW_EXAMPLES =
+  process.env.REACT_APP_DIMO_SHOW_EXAMPLE !== 'false';
 
 function App() {
   const [permissionsEnabled, setPermissionsEnabled] = useState(true);
@@ -61,8 +63,18 @@ function App() {
           </label>
         </div>
         <UserData />
-        <Examples loginType={DimoSDKModes.POPUP} permissionsEnabled={permissionsEnabled} />
-        <Examples loginType={DimoSDKModes.REDIRECT} permissionsEnabled={permissionsEnabled} />
+        {SHOW_EXAMPLES && (
+          <>
+            <Examples
+              loginType={DimoSDKModes.POPUP}
+              permissionsEnabled={permissionsEnabled}
+            />
+            <Examples
+              loginType={DimoSDKModes.REDIRECT}
+              permissionsEnabled={permissionsEnabled}
+            />
+          </>
+        )}
       </header>
     </div>
   );
