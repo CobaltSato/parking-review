@@ -28,7 +28,7 @@ type ParkingSpot = {
 
 function App() {
   const permissionsEnabled = true;
-  const forceEmail = true;
+  const forceEmail = false;
   initializeDimoSDK({
     clientId: process.env.REACT_APP_DIMO_CLIENT_ID!,
     redirectUri: process.env.REACT_APP_DIMO_REDIRECT_URI!,
@@ -100,7 +100,7 @@ const LoginScreen = () => {
 };
 
 const UserData = () => {
-  const { isAuthenticated, email, walletAddress } = useDimoAuthState();
+  const { isAuthenticated, walletAddress } = useDimoAuthState();
   const [copied, setCopied] = useState(false);
   
   if (!isAuthenticated) return null;
