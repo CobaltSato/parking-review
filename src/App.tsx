@@ -157,7 +157,6 @@ const ParkingFeedbackFlow = () => {
       rating,
     });
     setIsSubmitting(false);
-    setRewardMessage('20JPYCを付与しました！');
     setRatingOpen(false);
     setCommentOpen(true);
   }, [rating, spot]);
