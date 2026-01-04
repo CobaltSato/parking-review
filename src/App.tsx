@@ -88,13 +88,8 @@ const LoginScreen = () => {
         onSuccess={handleLoginSuccess}
         onError={handleLoginError}
       />
-      <div className="login-images-container">
-        <div className="login-hero">
-          <img src={topImage} alt="Parking Review" className="hero-image" />
-        </div>
-        <div className="login-info-image">
-          <img src={parkingReviewImage} alt="Parking Review" className="info-image" />
-        </div>
+      <div className="login-info-image">
+        <img src={parkingReviewImage} alt="Parking Review" className="info-image" />
       </div>
       {loginError && (
         <div className="error-message">{loginError}</div>
