@@ -67,7 +67,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
       <div className="parking-survey-overlay" onClick={handleSkip}>
         <div className="parking-survey-modal" onClick={(e) => e.stopPropagation()}>
           <div className="survey-question">
-            <p className="question-text">Did you use the Café de Paris parking lot?</p>
+            <p className="question-text">Did you use the parking lot of Café de Paris?</p>
             <div className="radio-group">
               <label className="radio-option">
                 <input
@@ -93,7 +93,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
           </div>
 
           <div className="survey-question">
-            <p className="question-text">How was the congestion at Café de Paris parking lot?</p>
+            <p className="question-text">How was the congestion at the parking lot of Café de Paris?</p>
             <div className="radio-group">
               <label className="radio-option">
                 <input
@@ -156,7 +156,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
             </div>
             <textarea
               className="comment-input"
-              placeholder="Enter your comment about the Café de Paris parking lot"
+              placeholder="Enter your comment about the parking lot of Café de Paris"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               rows={3}
