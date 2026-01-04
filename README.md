@@ -194,3 +194,10 @@ Pilotで得た改善を取り込み、通知＆ナビ連携フローと写真モ
 **4ヶ月目（7月）：リリース候補版と公開準備**  
 データ共有契約とセキュリティレビューを完了し、段階リリース。
 サポート体制、次期ロードマップ（混雑予測など）を整理して正式ローンチ判断に備える。
+
+## 🙏 Acknowledgments
+
+This project is built using the following open-source project:
+
+- [DIMO-Network/login-with-dimo](https://github.com/DIMO-Network/login-with-dimo) - DIMO Client SDK in React
+
