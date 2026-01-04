@@ -13,6 +13,8 @@ import {
 
 import { sampleAbi } from './abi/sample-abi';
 import ParkingSurvey from './components/ParkingSurvey';
+import topImage from './top.png';
+import mypageImage from './mypage.png';
 
 import './App.css';
 
@@ -38,7 +40,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="app-title">Parking Review</h1>
         <LoginScreen />
         <UserData />
         <ParkingFeedbackFlow />
@@ -86,6 +87,7 @@ const LoginScreen = () => {
         onSuccess={handleLoginSuccess}
         onError={handleLoginError}
       />
+
       {loginError && (
         <div className="error-message">{loginError}</div>
       )}
@@ -160,6 +162,9 @@ const UserData = () => {
             </div>
           </div>
         )}
+        <div className="mypage-hero">
+          <img src={mypageImage} alt="My Page" className="mypage-image" />
+        </div>
       </div>
     </div>
   );

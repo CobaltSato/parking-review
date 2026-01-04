@@ -52,18 +52,73 @@
 /* ログイン画面 */
 .login-screen {
   width: 100%;
-  max-width: 420px;
+  max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 40px 32px;
+  gap: 16px;
+  padding: 32px 24px;
   background: rgba(30, 41, 59, 0.6);
   backdrop-filter: blur(12px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.login-hero {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ログインボタンのスタイル改善 */
+.login-screen .custom-button {
+  width: 100%;
+  max-width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.login-screen .custom-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.4);
+  background: linear-gradient(135deg, #4f9af8 0%, #7a4af4 100%);
+}
+
+.login-screen .custom-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+}
+
+.login-screen .custom-button svg {
+  width: 20px;
+  height: 18px;
+}
+
+.login-screen .custom-button svg path {
+  fill: white;
 }
 
 .error-message {
@@ -82,17 +137,35 @@
 /* ユーザー情報表示 */
 .user-data {
   width: 100%;
-  max-width: 640px;
+  max-width: 600px;
   margin: 0 0 3rem 0;
 }
 
 .user-info-card {
-  background: rgba(30, 41, 59, 0.75);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mypage-hero {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.mypage-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .user-info-row {
@@ -487,7 +560,18 @@
 
   .login-screen {
     max-width: 100%;
-    padding: 32px 24px;
+    padding: 24px 20px;
+    gap: 14px;
+  }
+
+  .hero-image {
+    max-width: 100%;
+  }
+
+  .login-screen .custom-button {
+    height: 44px;
+    font-size: 14px;
+    padding: 10px 20px;
   }
 
   .user-data {
@@ -495,7 +579,12 @@
   }
 
   .user-info-card {
-    padding: 32px 24px;
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  .mypage-image {
+    max-width: 100%;
   }
 
   .user-info-row {
@@ -523,13 +612,30 @@
   }
 
   .login-screen {
-    padding: 24px 20px;
+    padding: 20px 16px;
     border-radius: 16px;
+    gap: 12px;
+  }
+
+  .hero-image {
+    border-radius: 8px;
+  }
+
+  .login-screen .custom-button {
+    height: 42px;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 10px;
   }
 
   .user-info-card {
-    padding: 24px 20px;
-    border-radius: 20px;
+    padding: 20px 16px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .mypage-image {
+    border-radius: 8px;
   }
 
   .user-info-row {
