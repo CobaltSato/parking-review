@@ -99,8 +99,9 @@ const UserData = () => {
   
   if (!isAuthenticated) return null;
   
+  const fullWallet = walletAddress || null;
   const truncatedWallet = walletAddress 
-    ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
+    ? `${walletAddress.slice(0, 10)}...${walletAddress.slice(-8)}`
     : null;
 
   const handleCopyWallet = async () => {
@@ -132,13 +133,13 @@ const UserData = () => {
           <div className="user-info-row">
             <div className="user-info-icon">👛</div>
             <div className="user-info-content">
-              <div className="user-info-label">ウォレットアドレス</div>
               <div 
                 className={`user-info-value wallet ${copied ? 'copied' : ''}`}
                 onClick={handleCopyWallet}
                 title="クリックでコピー"
               >
-                {truncatedWallet}
+                <span className="wallet-full">{fullWallet}</span>
+                <span className="wallet-truncated">{truncatedWallet}</span>
                 <span className="copy-icon">{copied ? '✓' : '📋'}</span>
               </div>
               <a
