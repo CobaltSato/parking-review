@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   DimoSDKModes,
@@ -12,19 +12,13 @@ import {
 } from '@dimo-network/login-with-dimo';
 
 import { sampleAbi } from './abi/sample-abi';
+import ParkingSurvey from './components/ParkingSurvey';
 
 import './App.css';
 
 const sampleExpirationDate = new Date(Date.UTC(2025, 11, 11, 18, 51)); // Note: Month is zero-based
 const SHOW_EXAMPLES =
   process.env.REACT_APP_DIMO_SHOW_EXAMPLE !== 'false';
-
-type ParkingSpot = {
-  id: string;
-  name: string;
-  location: string;
-  reward?: string;
-};
 
 function App() {
   const permissionsEnabled = true;
@@ -120,6 +114,17 @@ const UserData = () => {
     }
   };
 
+  const polygonScanUrl = walletAddress 
+    ? `https://polygonscan.com/address/${walletAddress}`
+    : '';
+
+  const handlePolygonScanClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (polygonScanUrl) {
+      window.open(polygonScanUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <div className="user-data">
       <div className="user-info-card">
@@ -136,6 +141,21 @@ const UserData = () => {
                 {truncatedWallet}
                 <span className="copy-icon">{copied ? '✓' : '📋'}</span>
               </div>
+              <a
+                href={polygonScanUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="polygonscan-link"
+                onClick={handlePolygonScanClick}
+                title="PolygonScanで開く"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M15 3h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                PolygonScan
+              </a>
             </div>
           </div>
         )}
@@ -146,283 +166,30 @@ const UserData = () => {
 
 const ParkingFeedbackFlow = () => {
   const { isAuthenticated } = useDimoAuthState();
-  const { spot, isLoading } = useMockParkingSpot();
-  const [isRatingOpen, setRatingOpen] = useState(false);
-  const [isCommentOpen, setCommentOpen] = useState(false);
-  const [rating, setRating] = useState<number | null>(null);
-  const [comment, setComment] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [rewardMessage, setRewardMessage] = useState<string | null>(null);
+  const [showSurvey, setShowSurvey] = useState(false);
 
-  // ログイン後に評価モーダルを表示
+  // ログイン後にアンケートを表示
   useEffect(() => {
-    if (isAuthenticated && spot && !isLoading) {
-      setRatingOpen(true);
+    if (isAuthenticated) {
+      setShowSurvey(true);
+    } else {
+      setShowSurvey(false);
     }
-  }, [isAuthenticated, spot, isLoading]);
+  }, [isAuthenticated]);
 
-  const handleSubmitRating = useCallback(async () => {
-    if (!spot || rating === null) return;
-    setIsSubmitting(true);
-    await mockSubmitToApi({
-      type: 'parking-rating',
-      spotId: spot.id,
-      rating,
-    });
-    setIsSubmitting(false);
-    setRatingOpen(false);
-    setCommentOpen(true);
-  }, [rating, spot]);
-
-  const handleSkipRating = useCallback(() => {
-    setRatingOpen(false);
-  }, []);
-
-  const handleSubmitComment = useCallback(async () => {
-    if (!spot) return;
-    setIsSubmitting(true);
-    await mockSubmitToApi({
-      type: 'parking-comment',
-      spotId: spot.id,
-      comment,
-    });
-    setIsSubmitting(false);
-    setComment('');
-    setCommentOpen(false);
-    setRewardMessage('フィードバックありがとうございます！');
-  }, [comment, spot]);
+  const handleSurveyClose = () => {
+    setShowSurvey(false);
+  };
 
   if (!isAuthenticated) return null;
 
-  if (isLoading) {
-    return (
-      <div className="parking-feedback placeholder-card">
-        DIMOから駐車データを取得中...
-      </div>
-    );
+  if (showSurvey) {
+    return <ParkingSurvey onClose={handleSurveyClose} />;
   }
 
-  if (!spot) return null;
-
-  return (
-    <div className="parking-feedback">
-      {rewardMessage && (
-        <div className="reward-banner">{rewardMessage}</div>
-      )}
-      {isRatingOpen && (
-        <ParkingRatingModal
-          spot={spot}
-          rating={rating}
-          onSelect={setRating}
-          onSubmit={handleSubmitRating}
-          onSkip={handleSkipRating}
-          isSubmitting={isSubmitting}
-        />
-      )}
-      {isCommentOpen && (
-        <ParkingCommentModal
-          spot={spot}
-          comment={comment}
-          onChangeComment={setComment}
-          onSubmit={handleSubmitComment}
-          onClose={() => setCommentOpen(false)}
-          isSubmitting={isSubmitting}
-        />
-      )}
-      {!isRatingOpen && !isCommentOpen && (
-        <button
-          className="dimo-button primary"
-          onClick={() => {
-            setRatingOpen(true);
-            setCommentOpen(false);
-            setRewardMessage(null);
-            setRating(null);
-          }}
-        >
-          フィードバックをもう一度送る
-        </button>
-      )}
-    </div>
-  );
+  return null;
 };
 
-const ParkingRatingModal = ({
-  spot,
-  rating,
-  onSelect,
-  onSubmit,
-  onSkip,
-  isSubmitting,
-}: {
-  spot: ParkingSpot;
-  rating: number | null;
-  onSelect: (value: number) => void;
-  onSubmit: () => void;
-  onSkip: () => void;
-  isSubmitting: boolean;
-}) => (
-  <div className="feedback-modal-overlay">
-    <div className="feedback-modal">
-      <button 
-        className="modal-close" 
-        onClick={onSkip}
-        aria-label="閉じる"
-      >
-        ×
-      </button>
-      <div className="modal-header">
-        <p>{spot.name}の駐車難易度を教えてください</p>
-      </div>
-      <StarRating value={rating} onSelect={onSelect} />
-      <div className="rating-labels">
-        <span>簡単</span>
-        <span>難しい</span>
-      </div>
-      <div className="modal-actions stacked">
-        <button
-          className="dimo-button primary"
-          onClick={onSubmit}
-          disabled={rating === null || isSubmitting}
-        >
-          {isSubmitting ? '送信中...' : '送信する'}
-        </button>
-        <button className="dimo-button secondary" onClick={onSkip}>
-          この評価はスキップする
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
-const ParkingCommentModal = ({
-  spot,
-  comment,
-  onChangeComment,
-  onSubmit,
-  onClose,
-  isSubmitting,
-}: {
-  spot: ParkingSpot;
-  comment: string;
-  onChangeComment: (value: string) => void;
-  onSubmit: () => void;
-  onClose: () => void;
-  isSubmitting: boolean;
-}) => (
-  <div className="feedback-modal-overlay">
-    <div className="feedback-modal">
-      <button 
-        className="modal-close" 
-        onClick={onClose}
-        aria-label="閉じる"
-      >
-        ×
-      </button>
-      <div className="modal-header">
-        <p>コメント（任意）</p>
-      </div>
-      <textarea
-        className="comment-input"
-        rows={4}
-        placeholder={`${spot.name}の印象や注意点などをご自由にどうぞ`}
-        value={comment}
-        onChange={(event) => onChangeComment(event.target.value)}
-      />
-      <div className="modal-actions">
-        <button
-          className="dimo-button primary"
-          onClick={onSubmit}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? '送信中...' : '送信する'}
-        </button>
-      </div>
-      <p className="comment-hint">
-        コメントを送信いただくと抽選でさらに100JPYCが当たります
-      </p>
-    </div>
-  </div>
-);
-
-const StarRating = ({
-  value,
-  onSelect,
-}: {
-  value: number | null;
-  onSelect: (star: number) => void;
-}) => (
-  <div className="star-rating">
-    {[1, 2, 3, 4, 5].map((star) => (
-      <button
-        key={star}
-        type="button"
-        className={`star ${value !== null && star <= value ? 'filled' : ''}`}
-        onClick={() => onSelect(star)}
-      >
-        ★
-      </button>
-    ))}
-  </div>
-);
-
-// DIMOから駐車データを取得する（Mock）
-const useMockParkingSpot = () => {
-  const { isAuthenticated } = useDimoAuthState();
-  const [spot, setSpot] = useState<ParkingSpot | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setIsLoading(false);
-      return;
-    }
-
-    // DIMO APIから駐車データを取得する（Mock実装）
-    const fetchParkingData = async () => {
-      // 実際の実装では、DIMO APIを呼び出して駐車データを取得
-      // 例: const response = await fetch('/api/dimo/parking-spots', { headers: { Authorization: `Bearer ${token}` } });
-      
-      // Mock: DIMOから取得した駐車データをシミュレート
-      await new Promise(resolve => setTimeout(resolve, 600));
-      
-      setSpot({
-        id: 'mock-spot-001',
-        name: '渋谷地下駐車場',
-        location: '東京都渋谷区渋谷2-21-1',
-        reward: '20JPYC',
-      });
-      setIsLoading(false);
-    };
-
-    fetchParkingData();
-  }, [isAuthenticated]);
-
-  return { spot, isLoading };
-};
-
-// DIMO APIに駐車フィードバックを送信する（Mock）
-const mockSubmitToApi = async (payload: Record<string, unknown>) => {
-  // 実際の実装では、DIMO APIに送信
-  // 例: await fetch('/api/dimo/parking-feedback', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-  //   body: JSON.stringify({ spotId: payload.spotId, ...payload })
-  // });
-  
-  console.log('DIMO API送信（Mock）:', {
-    endpoint: '/api/dimo/parking-feedback',
-    payload: {
-      spotId: payload.spotId,
-      spotName: payload.type === 'parking-rating' || payload.type === 'parking-comment' 
-        ? '渋谷地下駐車場' 
-        : undefined,
-      location: '東京都渋谷区渋谷2-21-1',
-      ...payload,
-    },
-  });
-  
-  await new Promise(resolve => setTimeout(resolve, 900));
-};
 
 const Examples = (props: Props) => {
   const { loginType, permissionsEnabled } = props;

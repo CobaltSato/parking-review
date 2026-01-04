@@ -1,0 +1,275 @@
+/* オーバーレイ */
+.parking-survey-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-in;
+}
+
+/* モーダル */
+.parking-survey-modal {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+/* タイトル */
+.survey-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 24px 0;
+  text-align: left;
+  line-height: 1.5;
+}
+
+/* 質問 */
+.survey-question {
+  margin-bottom: 32px;
+}
+
+.question-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+/* ラジオボタングループ */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.radio-option input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 12px;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  background-color: white;
+}
+
+.radio-option input[type="radio"]:checked {
+  border-color: #2196F3;
+  background-color: white;
+}
+
+.radio-option input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #2196F3;
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+  color: #000;
+}
+
+.radio-label {
+  font-size: 16px;
+  color: #333;
+  user-select: none;
+}
+
+/* アクション */
+.survey-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.submit-button {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #1976D2;
+}
+
+.submit-button:disabled {
+  background-color: #808080;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.skip-link {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.skip-link:hover {
+  color: #333;
+}
+
+/* 成功モーダル */
+.success-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.success-modal {
+  background-color: white;
+  border-radius: 12px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.success-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.success-message {
+  font-size: 16px;
+  color: #333;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.close-button {
+  margin-top: 24px;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.close-button:hover {
+  background-color: #d0d0d0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* レスポンシブ */
+@media (max-width: 480px) {
+  .parking-survey-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .parking-survey-modal {
+    border-radius: 12px 12px 0 0;
+    max-width: 100%;
+    max-height: 85vh;
+  }
+
+  .survey-title {
+    font-size: 16px;
+  }
+
+  .question-text {
+    font-size: 14px;
+  }
+
+  .radio-label {
+    font-size: 14px;
+  }
+}
