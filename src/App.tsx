@@ -132,9 +132,22 @@ const UserData = () => {
     <div className="user-data">
       <div className="user-info-card">
         {walletAddress && (
-          <div className="user-info-row">
-            <div className="user-info-icon">👛</div>
-            <div className="user-info-content">
+          <div className="user-info-content">
+            <div className="wallet-container">
+              <a
+                href={polygonScanUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="polygonscan-link"
+                onClick={handlePolygonScanClick}
+                title="PolygonScanで開く"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M15 3h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
               <div 
                 className={`user-info-value wallet ${copied ? 'copied' : ''}`}
                 onClick={handleCopyWallet}
@@ -144,21 +157,6 @@ const UserData = () => {
                 <span className="wallet-truncated">{truncatedWallet}</span>
                 <span className="copy-icon">{copied ? '✓' : '📋'}</span>
               </div>
-              <a
-                href={polygonScanUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="polygonscan-link"
-                onClick={handlePolygonScanClick}
-                title="PolygonScanで開く"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M15 3h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                PolygonScan
-              </a>
             </div>
           </div>
         )}
