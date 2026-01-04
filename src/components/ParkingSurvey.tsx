@@ -67,7 +67,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
       <div className="parking-survey-overlay" onClick={handleSkip}>
         <div className="parking-survey-modal" onClick={(e) => e.stopPropagation()}>
           <div className="survey-question">
-            <p className="question-text">カフェ・ド・パリの駐車場を利用しましたか?</p>
+            <p className="question-text">Did you use the parking lot?</p>
             <div className="radio-group">
               <label className="radio-option">
                 <input
@@ -77,7 +77,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={usedParking === 'used'}
                   onChange={(e) => setUsedParking(e.target.value)}
                 />
-                <span className="radio-label">利用した</span>
+                <span className="radio-label">Yes</span>
               </label>
               <label className="radio-option">
                 <input
@@ -87,13 +87,13 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={usedParking === 'notUsed'}
                   onChange={(e) => setUsedParking(e.target.value)}
                 />
-                <span className="radio-label">利用していない</span>
+                <span className="radio-label">No</span>
               </label>
             </div>
           </div>
 
           <div className="survey-question">
-            <p className="question-text">今の駐車場の混雑状況はどうでしたか?</p>
+            <p className="question-text">How was the congestion?</p>
             <div className="radio-group">
               <label className="radio-option">
                 <input
@@ -103,7 +103,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={congestion === 'empty'}
                   onChange={(e) => setCongestion(e.target.value)}
                 />
-                <span className="radio-label">空いている</span>
+                <span className="radio-label">Empty</span>
               </label>
               <label className="radio-option">
                 <input
@@ -113,7 +113,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={congestion === 'slightlyEmpty'}
                   onChange={(e) => setCongestion(e.target.value)}
                 />
-                <span className="radio-label">やや空いている</span>
+                <span className="radio-label">Slightly empty</span>
               </label>
               <label className="radio-option">
                 <input
@@ -123,7 +123,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={congestion === 'normal'}
                   onChange={(e) => setCongestion(e.target.value)}
                 />
-                <span className="radio-label">普通</span>
+                <span className="radio-label">Normal</span>
               </label>
               <label className="radio-option">
                 <input
@@ -133,7 +133,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={congestion === 'slightlyCrowded'}
                   onChange={(e) => setCongestion(e.target.value)}
                 />
-                <span className="radio-label">やや混雑</span>
+                <span className="radio-label">Slightly crowded</span>
               </label>
               <label className="radio-option">
                 <input
@@ -143,31 +143,31 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   checked={congestion === 'veryCrowded'}
                   onChange={(e) => setCongestion(e.target.value)}
                 />
-                <span className="radio-label">かなり混雑</span>
+                <span className="radio-label">Very crowded</span>
               </label>
             </div>
           </div>
 
-          {/* 任意項目: コメント */}
+          {/* Optional: Comment */}
           <div className="survey-question optional">
             <div className="question-header">
-              <p className="question-text">コメント（任意）</p>
-              <span className="optional-badge">任意</span>
+              <p className="question-text">Comment (optional)</p>
+              <span className="optional-badge">Optional</span>
             </div>
             <textarea
               className="comment-input"
-              placeholder="駐車場についてのコメントを入力してください"
+              placeholder="Enter your comment about the parking lot"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               rows={3}
             />
           </div>
 
-          {/* 任意項目: 画像アップロード */}
+          {/* Optional: Image upload */}
           <div className="survey-question optional">
             <div className="question-header">
-              <p className="question-text">写真（任意）</p>
-              <span className="optional-badge">任意</span>
+              <p className="question-text">Photos (optional)</p>
+              <span className="optional-badge">Optional</span>
             </div>
             <div className="image-upload-section">
               <label className="image-upload-button">
@@ -183,7 +183,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                   <polyline points="17 8 12 3 7 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                写真を選択
+                Select photos
               </label>
               {imagePreviews.length > 0 && (
                 <div className="image-preview-grid">
@@ -194,7 +194,7 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                         type="button"
                         className="remove-image-button"
                         onClick={() => handleRemoveImage(index)}
-                        aria-label="画像を削除"
+                        aria-label="Remove image"
                       >
                         ×
                       </button>
@@ -211,10 +211,10 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
               onClick={handleSubmit}
               disabled={!usedParking || !congestion}
             >
-              送信
+              Submit
             </button>
             <button className="skip-link" onClick={handleSkip}>
-              今回は評価しない
+              Skip
             </button>
           </div>
         </div>
@@ -235,11 +235,11 @@ const ParkingSurvey: React.FC<ParkingSurveyProps> = ({ onClose }) => {
                 />
               </svg>
             </div>
-            <p className="success-message">ご協力ありがとうございます。</p>
-            <p className="success-message">10 JPYCを付与しました。</p>
-            <p className="success-message">あなたの回答は、次の人の判断に使われます。</p>
+            <p className="success-message">Thank you for your cooperation.</p>
+            <p className="success-message">10 JPYC has been awarded.</p>
+            <p className="success-message">Your response will be used to help others make decisions.</p>
             <button className="close-button" onClick={handleCloseSuccess}>
-              閉じる
+              Close
             </button>
           </div>
         </div>

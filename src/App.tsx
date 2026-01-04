@@ -15,6 +15,7 @@ import { sampleAbi } from './abi/sample-abi';
 import ParkingSurvey from './components/ParkingSurvey';
 import topImage from './top.png';
 import mypageImage from './mypage.png';
+import parkingReviewImage from './83b004f7-7cd1-4896-b8f3-c561555246e3.png';
 
 import './App.css';
 
@@ -77,7 +78,7 @@ const LoginScreen = () => {
 
   const handleLoginError = (error: unknown) => {
     console.error('Login error:', error);
-    setLoginError('ログインに失敗しました。もう一度お試しください。');
+    setLoginError('Login failed. Please try again.');
   };
 
   return (
@@ -87,7 +88,14 @@ const LoginScreen = () => {
         onSuccess={handleLoginSuccess}
         onError={handleLoginError}
       />
-
+      <div className="login-images-container">
+        <div className="login-hero">
+          <img src={topImage} alt="Parking Review" className="hero-image" />
+        </div>
+        <div className="login-info-image">
+          <img src={parkingReviewImage} alt="Parking Review" className="info-image" />
+        </div>
+      </div>
       {loginError && (
         <div className="error-message">{loginError}</div>
       )}
@@ -133,14 +141,18 @@ const UserData = () => {
       <div className="user-info-card">
         {walletAddress && (
           <div className="user-info-content">
-            <div className="wallet-container">
+            <div 
+              className={`wallet-container ${copied ? 'copied' : ''}`}
+              onClick={handleCopyWallet}
+              title="Click to copy"
+            >
               <a
                 href={polygonScanUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="polygonscan-link"
                 onClick={handlePolygonScanClick}
-                title="PolygonScanで開く"
+                title="Open in PolygonScan"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -148,14 +160,9 @@ const UserData = () => {
                   <path d="M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
-              <div 
-                className={`user-info-value wallet ${copied ? 'copied' : ''}`}
-                onClick={handleCopyWallet}
-                title="クリックでコピー"
-              >
+              <div className="wallet-address">
                 <span className="wallet-full">{fullWallet}</span>
                 <span className="wallet-truncated">{truncatedWallet}</span>
-                <span className="copy-icon">{copied ? '✓' : '📋'}</span>
               </div>
             </div>
           </div>
@@ -172,7 +179,7 @@ const ParkingFeedbackFlow = () => {
   const { isAuthenticated } = useDimoAuthState();
   const [showSurvey, setShowSurvey] = useState(false);
 
-  // ログイン後にアンケートを表示
+  // Show survey after login
   useEffect(() => {
     if (isAuthenticated) {
       setShowSurvey(true);
