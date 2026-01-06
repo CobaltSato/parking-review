@@ -14,8 +14,8 @@ import {
 import { sampleAbi } from './abi/sample-abi';
 import ParkingSurvey from './components/ParkingSurvey';
 import topImage from './top.png';
-import mypageImage from './mypage.png';
-import parkingReviewImage from './83b004f7-7cd1-4896-b8f3-c561555246e3.png';
+import mypageImage from './top.png';
+import parkingReviewImage from './top.png';
 
 import './App.css';
 
